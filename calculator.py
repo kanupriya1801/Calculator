@@ -65,15 +65,15 @@ def calculate():
         entry.delete(0, tk.END)
         entry.insert(tk.END, "Error")
 
-# Create the main window
+
 root = tk.Tk()
 root.title("Calculator")
 
-# Entry widget for input and display
+
 entry = Entry(root, width=16, font=('Arial', 16))
 entry.grid(row=0, column=0, columnspan=4)
 
-# Define the buttons
+
 buttons = [
     '7', '8', '9', '/',
     '4', '5', '6', '*',
@@ -81,7 +81,7 @@ buttons = [
     '0', '.', '=', '+'
 ]
 
-# Add buttons to the grid
+
 row_val = 1
 col_val = 0
 
@@ -92,8 +92,8 @@ for button in buttons:
         col_val = 0
         row_val += 1
 
-# Clear button
+
 tk.Button(root, text='C', width=4, height=2, command=clear_entry).grid(row=row_val, column=col_val, columnspan=2)
 
-# Run the application
+
 root.mainloop()
