@@ -48,7 +48,7 @@ pipeline {
             steps {
                 script {
                     sh """
-                        helm upgrade --install ${HELM_RELEASE_NAME} ./calculator/${HELM_CHART_NAME} \
+                        helm upgrade --install ${HELM_RELEASE_NAME} ./Calculator/${HELM_CHART_NAME} \
                         --set image.repository=${DOCKER_IMAGE} \
                         --set image.tag=${env.BUILD_NUMBER} \
                         --kube-context ${KUBE_CONTEXT}
