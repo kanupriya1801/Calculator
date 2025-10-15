@@ -5,8 +5,7 @@ pipeline {
         DOCKER_IMAGE = "kanupriya18/calculator-app"
         DOCKER_CREDENTIALS_ID = "dockerhub-creds"
         HELM_RELEASE_NAME = "calculator-release"
-        HELM_CHART_PATH = "to-do-chart"
-        HELM_CHART_NAME = "calculator-chart"
+        HELM_CHART_NAME = "to-do-chart"
         KUBE_CONTEXT = "minikube"
         JIRA_SITE = "your-jira-site"
         JIRA_CREDENTIALS_ID = "jira-creds"
@@ -48,8 +47,6 @@ pipeline {
         stage('Deploy to Kubernetes with Helm') {
             steps {
                 script {
-                    sh "helm repo add calculator ${HELM_CHART_REPO}"
-                    sh "helm repo update"
                     sh """
                         helm upgrade --install ${HELM_RELEASE_NAME} calculator/${HELM_CHART_NAME} \
                         --set image.repository=${DOCKER_IMAGE} \
