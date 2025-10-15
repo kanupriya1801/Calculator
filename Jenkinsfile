@@ -9,7 +9,6 @@ pipeline {
         KUBE_CONTEXT = "minikube"
         OPENSHIFT_HELM_RELEASE_NAME = "calculator-green"
         OPENSHIFT_HELM_CHART_NAME = "calculator-chart-openshift"
-        OPENSHIFT_CONTEXT = "kanupriya1801-dev/api-rm1-0a51-p1-openshiftapps-com:6443/kanupriya1801"
         JIRA_SITE = "your-jira-site"
         JIRA_CREDENTIALS_ID = "jira-creds"
     }
@@ -78,7 +77,7 @@ pipeline {
                        helm upgrade --install ${OPENSHIFT_HELM_RELEASE_NAME} ./${OPENSHIFT_HELM_CHART_NAME} \
                        --set image.repository=${DOCKER_IMAGE} \
                        --set image.tag=${env.BUILD_NUMBER} \
-                       --kube-context ${OPENSHIFT_CONTEXT} \
+                       --kube-context openshift-sandbox \
                        --namespace green --create-namespace
                     """
                  }
