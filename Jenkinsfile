@@ -9,7 +9,7 @@ pipeline {
         KUBE_CONTEXT = "minikube"
         OPENSHIFT_HELM_RELEASE_NAME = "calculator-green"
         OPENSHIFT_HELM_CHART_NAME = "calculator-chart-openshift"
-        OPENSHIFT_CONTEXT = "openshift-sandbox"
+        OPENSHIFT_CONTEXT = "default/kanupriya1801-dev/api-rm1.0a51.p1.openshiftapps.com:6443"
         JIRA_SITE = "your-jira-site"
         JIRA_CREDENTIALS_ID = "jira-creds"
     }
