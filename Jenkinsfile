@@ -7,6 +7,9 @@ pipeline {
         HELM_RELEASE_NAME = "calculator-release"
         HELM_CHART_NAME = "to-do-chart"
         KUBE_CONTEXT = "minikube"
+        OPENSHIFT_HELM_RELEASE_NAME = "calculator-green"
+        OPENSHIFT_HELM_CHART_NAME = "calculator-chart-openshift"
+        OPENSHIFT_CONTEXT = "openshift-sandbox"
         JIRA_SITE = "your-jira-site"
         JIRA_CREDENTIALS_ID = "jira-creds"
     }
@@ -55,6 +58,19 @@ pipeline {
                     """
                 }
             }
+        }
+        stage('Deploy to OpenShift (Green)') {
+            steps {
+                script {
+                    sh """
+                       helm upgrade --install ${OPENSHIFT_HELM_RELEASE_NAME} ./${OPENSHIFT_HELM_CHART_NAME} \
+                       --set image.repository=${DOCKER_IMAGE} \
+                       --set image.tag=${env.BUILD_NUMBER} \
+                       --kube-context ${OPENSHIFT_CONTEXT} \
+                       --namespace green --create-namespace
+                    """
+                 }
+             }
         }
 
         stage('Update Jira') {
