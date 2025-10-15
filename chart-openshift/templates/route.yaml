@@ -7,4 +7,4 @@ spec:
     kind: Service
     name: {{ .Release.Name }}
   port:
-    targetPort: http
+    targetPort: {{ .Values.service.targetPort }}
