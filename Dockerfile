@@ -1,14 +1,17 @@
-# Use official Python image
-FROM python:3.10-slim
+FROM jenkins/inbound-agent:latest
 
-# Set working directory
+USER root
+
+# Install Python and pip
+RUN apt-get update && \
+    apt-get install -y python3 python3-pip && \
+    apt-get clean
+
+# Create working directory
+RUN mkdir -p /app && chown jenkins:jenkins /app
+
+USER jenkins
 WORKDIR /app
 
-# Copy project files
-COPY . /app
-
-# Install dependencies (if any)
-# RUN pip install -r requirements.txt
-
-# Default command to run the calculator
-CMD ["python", "calculator.py"]
+# Optional: copy your Python app if building directly
+# COPY . /app
