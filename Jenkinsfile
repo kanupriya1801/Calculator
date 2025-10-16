@@ -6,7 +6,7 @@ pipeline {
         DOCKER_CREDENTIALS_ID = "dockerhub-creds"
         HELM_RELEASE_NAME = "calculator-release"
         HELM_CHART_NAME = "to-do-chart"
-        KUBE_CONTEXT = "minikube"
+        //KUBE_CONTEXT = "minikube"
         OPENSHIFT_HELM_RELEASE_NAME = "calculator-green"
         OPENSHIFT_HELM_CHART_NAME = "calculator-chart-openshift"
         JIRA_SITE = "your-jira-site"
@@ -53,7 +53,7 @@ pipeline {
                         helm upgrade --install ${HELM_RELEASE_NAME} ./${HELM_CHART_NAME} \
                         --set image.repository=${DOCKER_IMAGE} \
                         --set image.tag=${env.BUILD_NUMBER} \
-                        --kube-context ${KUBE_CONTEXT}
+                        --kubeconfig /home/ubuntu/.kube/config
                     """
                 }
             }
@@ -65,7 +65,7 @@ pipeline {
                        helm upgrade --install calculator-release ./to-do-chart \
                        --set image.repository=${DOCKER_IMAGE} \
                        --set image.tag=${env.BUILD_NUMBER} \
-                       --kube-context minikube
+                       --kubeconfig /home/ubuntu/.kube/config
                     """
                    }
               }
