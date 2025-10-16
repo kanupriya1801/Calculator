@@ -70,6 +70,18 @@ pipeline {
                    }
               }
         } 
+        stage('Notify Slack') {
+            steps {
+                 script {
+                     def message = "✅ Build #${env.BUILD_NUMBER} deployed successfully to Kubernetes!"
+                     sh """
+                        curl -X POST -H 'Content-type: application/json' \
+                        --data '{"text": "${message}"}' \
+                        https://hooks.slack.com/services/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
+                    """
+                  }
+             }
+       }
         /*stage('Deploy to OpenShift (Green)') {
             steps {
                 script {
