@@ -70,7 +70,7 @@ pipeline {
                    }
               }
         } 
-        stage('Deploy to OpenShift (Green)') {
+        /*stage('Deploy to OpenShift (Green)') {
             steps {
                 script {
                     sh """
@@ -90,5 +90,5 @@ pipeline {
                 jiraSendDeploymentInfo site: JIRA_SITE, environmentId: 'production', environmentName: 'Production', deploymentState: 'successful'
             }
         }
-    }
+    } */
 }
