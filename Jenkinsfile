@@ -53,7 +53,7 @@ pipeline {
                         helm upgrade --install ${HELM_RELEASE_NAME} ./${HELM_CHART_NAME} \
                         --set image.repository=${DOCKER_IMAGE} \
                         --set image.tag=${env.BUILD_NUMBER} \
-                        --kubeconfig /var/lib/jenkins/.kube/config
+                        --kubeconfig /home/ubuntu/.kube/config
                     """
                 }
             }
@@ -65,7 +65,7 @@ pipeline {
                        helm upgrade --install calculator-release ./to-do-chart \
                        --set image.repository=${DOCKER_IMAGE} \
                        --set image.tag=${env.BUILD_NUMBER} \
-                       --kubeconfig /var/lib/jenkins/.kube/config
+                       --kubeconfig /home/ubuntu/.kube/config
                     """
                    }
               }
