@@ -89,6 +89,6 @@ pipeline {
                 jiraSendBuildInfo site: JIRA_SITE, buildNumber: env.BUILD_NUMBER
                 jiraSendDeploymentInfo site: JIRA_SITE, environmentId: 'production', environmentName: 'Production', deploymentState: 'successful'
             }
-        }
-    } */
+        }*/
+    } 
 }
