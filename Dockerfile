@@ -1,16 +1,17 @@
-FROM jenkins/inbound-agent:latest
-USER root
+# Use official Python base image
+FROM python:3.9-slim
 
-# Install Python and pip (for your Python app)
-RUN apt-get update && \
-    apt-get install -y python3 python3-pip curl gnupg && \
-    apt-get clean
-
-# Install Helm
-RUN curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
-
-# Create working directory
-RUN mkdir -p /app && chown jenkins:jenkins /app
-
-USER jenkins
+# Set working directory
 WORKDIR /app
+
+# Copy all files to the container
+COPY . .
+
+# Install dependencies
+RUN pip install --no-cache-dir flask
+
+# Expose the port the app runs on
+EXPOSE 5000
+
+# Run the calculator app
+CMD ["python", "calculator.py"]
