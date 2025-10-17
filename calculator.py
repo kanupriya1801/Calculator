@@ -1,3 +1,6 @@
+from flask import Flask, render_template, request
+app = Flask(__name__)
+
 def add(x, y):
     return x + y
 
@@ -13,87 +16,28 @@ def divide(x, y):
     else:
         return "Cannot divide by zero"
 
+@app.route('/', methods=['GET', 'POST'])
 def calculator():
-    print("Select operation:")
-    print("1. Add")
-    print("2. Subtract")
-    print("3. Multiply")
-    print("4. Divide")
+    result = None
+    error = None
+    if request.method == 'POST':
+        try:
+            num1 = float(request.form['num1'])
+            num2 = float(request.form['num2'])
+            operation = request.form['operation']
 
-    choice = input("Enter choice (1/2/3/4): ")
+            if operation == 'add':
+                result = add(num1, num2)
+            elif operation == 'subtract':
+                result = subtract(num1, num2)
+            elif operation == 'multipy':
+                result = multiply(num1, num2)
+            elif operation == 'divide':
+                result = divide(num1, num2)
+        except Exception as e:
+            error = str(e)
 
-    if choice in ('1', '2', '3', '4'):
-        num1 = float(input("Enter first number: "))
-        num2 = float(input("Enter second number: "))
+    return render_template('index.html', result=result, error=error)
 
-        if choice == '1':
-            print(num1, "+", num2, "=", add(num1, num2))
-
-        elif choice == '2':
-            print(num1, "-", num2, "=", subtract(num1, num2))
-
-        elif choice == '3':
-            print(num1, "*", num2, "=", multiply(num1, num2))
-
-        elif choice == '4':
-            result = divide(num1, num2)
-            print(num1, "/", num2, "=", result)
-
-    else:
-        print("Invalid input. Please enter a valid number (1/2/3/4).")
-
-if __name__ == "__main__":
-    calculator()
-
-import tkinter as tk
-from tkinter import Entry, Button
-
-def on_button_click(value):
-    current = entry.get()
-    entry.delete(0, tk.END)
-    entry.insert(tk.END, str(current) + str(value))
-
-def clear_entry():
-    entry.delete(0, tk.END)
-
-def calculate():
-    try:
-        result = eval(entry.get())
-        entry.delete(0, tk.END)
-        entry.insert(tk.END, str(result))
-    except Exception as e:
-        entry.delete(0, tk.END)
-        entry.insert(tk.END, "Error")
-
-
-root = tk.Tk()
-root.title("Calculator")
-
-
-entry = Entry(root, width=16, font=('Arial', 16))
-entry.grid(row=0, column=0, columnspan=4)
-
-
-buttons = [
-    '7', '8', '9', '/',
-    '4', '5', '6', '*',
-    '1', '2', '3', '-',
-    '0', '.', '=', '+'
-]
-
-
-row_val = 1
-col_val = 0
-
-for button in buttons:
-    tk.Button(root, text=button, width=4, height=2, command=lambda b=button: on_button_click(b) if b != '=' else calculate()).grid(row=row_val, column=col_val)
-    col_val += 1
-    if col_val > 3:
-        col_val = 0
-        row_val += 1
-
-
-tk.Button(root, text='C', width=4, height=2, command=clear_entry).grid(row=row_val, column=col_val, columnspan=2)
-
-
-root.mainloop()
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
