@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: your-dockerhub-username/calculator-app
+  repository: kanupriya18/calculator-app
   tag: latest
   pullPolicy: IfNotPresent
 
