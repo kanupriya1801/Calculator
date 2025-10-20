@@ -1,7 +1,7 @@
 replicaCount: 6
 
 image:
-  repository: kanupriya18/calculator-app
+  repository: kanupriya18/calculator
   tag: latest
   pullPolicy: IfNotPresent
 
